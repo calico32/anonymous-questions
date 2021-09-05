@@ -319,6 +319,13 @@ client.on('ready', () => {
       }
     }
   }, 5000);
+
+  setInterval(() => {
+    client.user.setActivity({
+      name: '/ask',
+      type: 'WATCHING',
+    });
+  }, 1000 * 60 * 15);
 });
 
 client.on('interactionCreate', async int => {
