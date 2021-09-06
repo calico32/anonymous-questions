@@ -53,9 +53,14 @@ const ask = async (int: CommandInteraction) => {
     choices = opt
       .getString('choices', true)
       .split(',')
+      .filter(choice => !!choice)
       .map(choice => choice.trim().replace(/ +/g, ' '));
-    if (choices.length < 1 || choices.length > 15)
-      return error(int, 'Specify at least 2 and no more than 15 answer choices.');
+
+    if (choices.length < 2 || choices.length > 15)
+      return error(
+        int,
+        'Specify at least 2 and no more than 15 answer choices. Choices should be separated by commas, not spaces.'
+      );
 
     if (questionText.length + choices.map(choice => choice.length).reduce((a, b) => a + b) > 1500)
       return error(int, 'Too much content. Try shortening your question and/or answer choices.');
